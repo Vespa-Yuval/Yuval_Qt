@@ -1,5 +1,3 @@
-
-
 # המחלקה הגבוהה ביותר שלוקחת נתונים מכל המחלקות שמתחת
 class Library (shelve):
     def __int__(self,name):
@@ -30,6 +28,9 @@ class Shelf:
             return ("position isnt empty")
 
 
+# צריך דחוף המלצה לתיקון הקלאס של המדף כי יש בעיה עם ההחלפות וכמה מקום יש במדף  
+
+
 
 
 # הסבר:
@@ -49,3 +50,6 @@ class Reader:
         self.reader_id = reader_id
         self.name = name
         self.books_read = books_read
+
+
+
