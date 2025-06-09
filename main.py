@@ -1,8 +1,10 @@
 # המחלקה הגבוהה ביותר שלוקחת נתונים מכל המחלקות שמתחת
 ### כנסתי להערה בגלל שיוצר קונפליקט עם המחלקה של  המדף צריך לברר למה
-# class Library (Shelve):
-#     def __int__(self,name):
-#         self.name = name
+# הסבר לטעות שלי
+#ns; לצורך העניין מדף הוא לא סוג של ספריה ... יכיל רשימת מדפים ולא ירש את המחלקה של ספרים בגלל זה התבלבלתי
+class Library :
+    def __int__(self,name):
+        self.name = name
 
 # מחלקה שלוקחת נתונים ממחלקה נמוכה יותר
 class Shelve:
@@ -20,7 +22,7 @@ class Shelve:
                 return
                 print("Sorry shelve is full")
 
-
+# חלפת ספרים
     def replace_books_pos(self,position1,position2):
        location1 = position1 -1
        location2 = position2 -1
@@ -35,7 +37,7 @@ class Shelve:
        self.books[location1] , self.books[location2] = self.books[location2],self.books[location1]
        print("books swapped positions ")
 
-
+# קלאס לספרים 
 
 class Book:
     def __int__(self,author,title,num_of_pages):
@@ -44,12 +46,27 @@ class Book:
         self.num_of_pages = num_of_pages
 
 
-# הקורא לא יורש
+# קלאס לקורא
 class Reader:
-    def __int__(self, reader_id, name, books_read):
+    def __int__(self, reader_id, name):
         self.reader_id = reader_id
         self.name = name
-        self.books_read = books_read
+        self.read_books = []
+
+# שאלת ספר מהספריה פונקציה
+    def read_books (self,book):
+        if len(self.read_books) > 3 :
+            print(f" {self.name}   can't tack more than 3 books ")
+        else:
+            self.read_books.append(book)
+            print(f" {self.name}, taken a book named: {book.title}. ")
+
+
+    #החזרת ספר מהספריה
+    def book_return
 
 
 
+    # הצגת הספרים שכבר הושאלו ע"י הקורא
+
+    def show_borrowed_books
