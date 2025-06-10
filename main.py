@@ -1,26 +1,26 @@
-# המחלקה הגבוהה ביותר שלוקחת נתונים מכל המחלקות שמתחת
-### כנסתי להערה בגלל שיוצר קונפליקט עם המחלקה של  המדף צריך לברר למה
-# הסבר לטעות שלי
-#ns; לצורך העניין מדף הוא לא סוג של ספריה ... יכיל רשימת מדפים ולא ירש את המחלקה של ספרים בגלל זה התבלבלתי
+
 class Library :
-    def __int__(self,name):
+    def __init__(self,name):
         self.name = name
+# צריך להוסיף לקלאס של הסיפריה :
+# רשימה של שלושה  מדפים
+# רשימה של קוראים
 
 # מחלקה שלוקחת נתונים ממחלקה נמוכה יותר
-class Shelve:
-    def __int__(self,shelve_number):
-        self.shelve_number = shelve_number
+class Shelf:
+    def __init__(self,shelf_number):
+        self.shelve_number = shelf_number
         self.books = [None] *5 # עשיתי עדכון שיספור , משתנה שיספור כמה ספרים יש במדף
-        self.shalveIsFull = False
+        self.shalfIsFull = False
 
     def OneMoreBook (self, book):   # פונקצית הוסמפת ספר
         for i in range(5):
             if self.books[i] is None:
                 self.books [i] = book
                 # בודק מצב ספרים על המדף ריק או מלא
-                self.shalveIsFull = all(self.books)
+                self.shalfIsFull = all(self.books)
                 return
-                print("Sorry shelve is full")
+                print("Sorry shelf is full")
 
 # חלפת ספרים
     def replace_books_pos(self,position1,position2):
@@ -40,7 +40,7 @@ class Shelve:
 # קלאס לספרים 
 
 class Book:
-    def __int__(self,author,title,num_of_pages):
+    def __init__(self,author,title,num_of_pages):
         self.author = author
         self.title = title
         self.num_of_pages = num_of_pages
@@ -48,25 +48,38 @@ class Book:
 
 # קלאס לקורא
 class Reader:
-    def __int__(self, reader_id, name):
+    def __init__(self, reader_id, name):
         self.reader_id = reader_id
         self.name = name
         self.read_books = []
 
-# שאלת ספר מהספריה פונקציה
-    def read_books (self,book):
-        if len(self.read_books) > 3 :
-            print(f" {self.name}   can't tack more than 3 books ")
+
+
+#  השאלת ספר מהספריה פונקציה שמוסיפה ספר לקורא
+    def Take_A_New_Book (self,book):
+        if len(self.read_books) > 3 : #  אפשר לשנות למספר אין סופי לצורך העניין
+            print(f" {self.name}  - can't tack more than 3 books ")
         else:
-            self.read_books.append(book)
-            print(f" {self.name}, taken a book named: {book.title}. ")
+            self.read_books.append(book.title)
+            print(f" {self.name}, - taken a book named: {book.title}. ")
 
 
-    #החזרת ספר מהספריה
-    def book_return
-
+    #החזרת ספר לספריה
+    def Book_Return(self,title):
+        if title in self.read_books:
+            self.read_books.remove(title)
+            print(f"{self.name} - returned the book {title} ")
+        else:
+            print(f"{self.name} -didnt take the book : {title}, so you cant return it ")
 
 
     # הצגת הספרים שכבר הושאלו ע"י הקורא
 
-    def show_borrowed_books
+    def show_borrowed_books(self):
+        if not self.read_books:
+            print(f"{self.name} - didnt read any books yet. ")
+        else:
+            print(f"{self.name} - read the folowing books : ")
+            for title in self.read_books:
+                print(f"- {title} -")
+
