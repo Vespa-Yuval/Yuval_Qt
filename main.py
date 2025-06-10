@@ -2,9 +2,73 @@
 class Library :
     def __init__(self,name):
         self.name = name
-# צריך להוסיף לקלאס של הסיפריה :
-# רשימה של שלושה  מדפים
-# רשימה של קוראים
+        self.shelfs = [shelve(i + 1) for i in range(3)] # בעיקרון אפשר אין סוף מדפים
+        self.readers =[]  #שימת הקוראים הריקה שלי
+
+
+# בדיקה של מקום לספר החדש אם ישנו
+ # - is_there_place_for_new_book() - Returns True if there is space to add a new book to any
+    # shelf; otherwise, returns False.
+
+    def SpaceForNewBok(self):
+        for shelf in self.shelfs:
+            if not shelf.shalveIsFull:
+               return True
+        return False
+#הוספת ספר
+  # add_new_book(book) – Adds the given Book to the first shelf that has free space.
+
+    def AddingNewBook (self, book):
+        for shelf in self.shelfs:
+            if not shelf.ShelfIsFull:
+                shelf.OneMoreBook(book)
+                return
+        print("no available place for a new book ")
+
+#מחיקת ספר לפי השם שלו
+    # - delete_book(title) – Searches  for a book by title and removes it from the library.
+
+    def DeleteABook (self,title):
+        for shelf in self.shelfs:
+            for i in  range(5):
+                book = shelf.books[i]
+                if book is not None and book.title == title:
+                    shelf.books[i] = None
+                    shelf.ShelfIsFull = False
+                    print(f"The book - {title} - Removed from library. ")
+                    return
+        print(f"No book by the name of- {title} -found .")
+
+# - register_reader(name, reader_id) – Creates a new Reader object and adds it to the list of
+# readers.
+# רישום משתמש חדש
+
+    def RegisterReader(self, name, reader_id):
+        reader = Reader(reader_id,name)
+        self.readers.append(reader)
+        print(f" Reader {name} registered successfully. ")
+
+# remove_reader(name) – Removes a reader from the readers list based on their name.
+
+    def RemoveReader(self,name):
+        for reader in self.readers:
+             if reader.name == name:
+                 self.reader.remove(reader)
+                 print(f" The reader{name} deleted from list.")
+
+# - search_by_author(author) – Returns a list of titles written by the specified author.
+
+    def SertchByAthor(self,author):
+        results = []
+        for shelf in self.shelfs:
+            for book in shelf.books:
+                if book is not Name and book.author == author:
+                    results.append(book.title)
+        return results
+
+
+
+
 
 # מחלקה שלוקחת נתונים ממחלקה נמוכה יותר
 class Shelf:
