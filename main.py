@@ -8,7 +8,7 @@ class Book:
 
 class Shelf:
     def __init__(self,shelf_number):
-        self.shelve_number = shelf_number
+        self.shelf_number = shelf_number
         self.books = [None] *5 # עשיתי עדכון שיספור , משתנה שיספור כמה ספרים יש במדף
         self.shalfIsFull = False
 
@@ -19,8 +19,22 @@ class Shelf:
                 # בודק מצב ספרים על המדף ריק או מלא
                 self.shalfIsFull = all(self.books)
                 return
-                print("Sorry shelf is full")
+    print("Sorry shelf is full")
 
+# חלפת ספרים
+    def replace_books_pos(self,position1,position2):
+       location1 = position1 -1
+       location2 = position2 -1
+       if not (0<= location1 < 5 and 0 <= location2 < 5):
+           print ("bad location  between 1 to 5 only try again ")
+           return
+
+       if self.books[location1] is None or self.books[location2] is None:
+            print("One of the locations is empty cant replace ")
+            return
+
+       self.books[location1] , self.books[location2] = self.books[location2],self.books[location1]
+       print("books swapped positions ")
 
 
 # קלאס לקורא
@@ -62,39 +76,21 @@ class Reader:
 
 
 
-
-
-
-# חלפת ספרים
-    def replace_books_pos(self,position1,position2):
-       location1 = position1 -1
-       location2 = position2 -1
-       if not (0<= location1 < 5 and 0 <= location2 < 5):
-           print ("bad location  between 1 to 5 only try again ")
-           return
-
-       if self.books[location1] is None or self.books[location2] is None:
-            print("One of the locations is empty cant replace ")
-            return
-
-       self.books[location1] , self.books[location2] = self.books[location2],self.books[location1]
-       print("books swapped positions ")
-
-# קלאס לספרים
+# קלאס לספריה
 class Library :
     def __init__(self,name):
         self.name = name
         self.shelfs = [Shelf(i + 1) for i in range(3)] # בעיקרון אפשר אין סוף מדפים
-        self.readers =[]  #שימת הקוראים הריקה שלי
+        self.readers =[]  #רשימת הקוראים הריקה 
 
 
 # בדיקה של מקום לספר החדש אם ישנו
  # - is_there_place_for_new_book() - Returns True if there is space to add a new book to any
     # shelf; otherwise, returns False.
 
-    def SpaceForNewBok(self):
+    def SpaceForNewBook(self):
         for shelf in self.shelfs:
-            if not shelf.shalveIsFull:
+            if not shelf.shalfeIsFull:
                return True
         return False
 #הוספת ספר
@@ -102,7 +98,7 @@ class Library :
 
     def AddingNewBook (self, Book):
         for shelf in self.shelfs:
-            if not shelf.shelfIsFull:
+            if not shelf.shalfIsFull:
                 shelf.OneMoreBook(Book)
                 return
         print("no available place for a new book ")
@@ -114,7 +110,7 @@ class Library :
         for shelf in self.shelfs:
             for i in  range(5):
                 book = shelf.books[i]
-                if book is not None and Book.title == title:
+                if book is not None and book.title == title:
                     shelf.books[i] = None
                     shelf.ShelfIsFull = False
                     print(f"The book - {title} - Removed from library. ")
@@ -135,19 +131,21 @@ class Library :
     def RemoveReader(self,name):
         for reader in self.readers:
              if reader.name == name:
-                 self.reader.remove(reader)
-                 print(f" The reader{name} deleted from list.")
-
-# - search_by_author(author) – Returns a list of titles written by the specified author.
+                
+                self.readers.remove(reader)
+                print(f" The reader{name} deleted from list.")
+                return
+        print(f"Reader: {name} wasen't found. ")
+#  
+# search_by_author(author) – Returns a list of titles written by the specified author.
 
     def SertchByAuthor(self,author):
         results = []
         for shelf in self.shelfs:
             for book in shelf.books:
-                if book is not name and book.author == author:
+                if book is not None and book.author == author:
                     results.append(book.title)
         return results
-
 
 my_library = Library(" Main library ")
 
@@ -168,7 +166,7 @@ while True:
     choice = input(" Enter your choice please: ")
 
     if choice == "1":
-        author = input("Enter author name")
+        author = input("Enter author name ")
         title = input(" Enter books name ")
         pages = int(input(" Pages in book: "))
         new_Book = Book(author, title, pages)
@@ -198,8 +196,8 @@ while True:
             print("Didn't found books by this author ")
 
     elif choice == "6":
-        Print("By By!")
-
+        print("By By!")
+        break
     else:
         print(" Try again, illegal choice ")
 
